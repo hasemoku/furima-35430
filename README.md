@@ -1,24 +1,68 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column         | Type       | Options     |
+| -------------- | ---------- | ----------- |
+| nick_name      | string     | null: false |
+| mail           | string     | null: false |
+| password       | string     | null: false |
+| last_name      | string     | null: false |
+| first_name     | string     | null: false |
+| last_name_kana | string     | null: false |
+| first_name_kana| string     | null: false |
+| birthday       | ActiveHash | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_many :comments
+- has_many :purchases
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column           | Type          | Options     |
+| ---------------- | ------------- | ----------- |
+| image            | ActiveStarage | null: false |
+| text             | text          | null: false |
+| cutegory         | ActiveHash    |             |
+| condition        | ActiveHash    |             |
+| shipping_charges | ActiveHash    |             |
+| delivery_source  | ActiveHash    |             |
+| days_to_ship     | ActiveHash    |             |
+| praice           | ActiveHash    |             |
+| user             | references    |             |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- has_many :users
+- has_many :comments
 
-* Services (job queues, cache servers, search engines, etc.)
+## comments テーブル
 
-* Deployment instructions
+| Column  | Type       | Options     |
+| ------- | ---------- | ----------- |
+| comment | text       | null: false |
+| user    | references |             |
+| item    | references |             |
 
-* ...
+### Association
+
+- belongs_to :user
+- belongs_to :item
+
+## purchases テーブル
+
+| Column           | Type        | Options     |
+| ---------------- | ----------- | ----------- |
+| postal_code      | ActiveHash  |             |
+| delivery_source  | ActiveHash  |             |
+| municipali       | string      | null: false |
+| address          | string      | null: false |
+| bildingname      | string      |             |
+| phone_number     | string      | null: false |
+| user             | references  |             |
+
+### Association
+
+- belongs_to :user
