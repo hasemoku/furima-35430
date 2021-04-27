@@ -28,10 +28,10 @@
 | description         | text       | null: false       |
 | cutegory_id         | integer    | null: false       |
 | condition_id        | integer    | null: false       |
-| shipping_charges_id | integer    | null: false       |
+| shipping_charge_id  | integer    | null: false       |
 | delivery_source_id  | integer    | null: false       |
 | days_to_ship_id     | integer    | null: false       |
-| price               | string     | null: false       |
+| price               | integer    | null: false       |
 | user                | references | foreign_key: true |
 
 ### Association
