@@ -2,53 +2,52 @@
 
 ## users テーブル
 
-| Column             | Type       | Options      |
-| ------------------ | ---------- | ------------ |
-| nick_name          | string     | null: false  |
-| email              | string     | unique: true |
-| encrypted_password | string     | null: false  |
-| last_name          | string     | null: false  |
-| first_name         | string     | null: false  |
-| last_name_kana     | string     | null: false  |
-| first_name_kana    | string     | null: false  |
-| birthday           | date       | null: false  |
+| Column             | Type       | Options                    |
+| ------------------ | ---------- | -------------------------- |
+| nick_name          | string     | null: false                |
+| email              | string     | unique: true , null: false |
+| encrypted_password | string     | null: false                |
+| last_name          | string     | null: false                |
+| first_name         | string     | null: false                |
+| last_name_kana     | string     | null: false                |
+| first_name_kana    | string     | null: false                |
+| birthday           | date       | null: false                |
 
 ### Association
 
 - has_many :items
 - has_many :purchases
-- has_many :addresses
 
 
 
 ## items テーブル
 
-| Column              | Type              | Options     |
-| ------------------- | ----------------- | ----------- |
-| description         | text              | null: false |
-| cutegory_id         | integer           |             |
-| condition_id        | integer           |             |
-| shipping_charges_id | integer           |             |
-| delivery_source_id  | integer           |             |
-| days_to_ship_id     | integer           |             |
-| praice              | string            | null: false |
-| comment             | text              | null: false |
-| user                | foreign_key: true |             |
+| Column              | Type       | Options     |
+| ------------------- | ---------- | ----------- |
+| description         | text       | null: false |
+| cutegory_id         | integer    | null: false |
+| condition_id        | integer    | null: false |
+| shipping_charges_id | integer    | null: false |
+| delivery_source_id  | integer    | null: false |
+| days_to_ship_id     | integer    | null: false |
+| praice              | string     | null: false |
+| user                | references |             |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :purchases
+- belongs_to :purchas
 
 
 
 
 ## purchases テーブル
 
-| Column | Type              | Options     |
-| ------ | ----------------- | ----------- |
-| user   | foreign_key: true |             |
-| item   | foreign_key: true |             |
+| Column       | Type       | Options     |
+| ------------ | ---------  | ----------- |
+| product_name | string     | null: false |
+| user         | references |             |
+| item         | references |             |
 
 ### Association
 
@@ -60,15 +59,15 @@
 
 ## addresses テーブル
 
-| Column             | Type              | Options     |
-| ------------------ | ----------------- | ----------- |
-| postal_code        | string            | null: false |
-| delivery_source_id | integer           |             |
-| municipali         | string            | null: false |
-| city_string        | string            | null: false |
-| bilding_name       | string            |             |
-| phone_number       | string            | null: false |
-| purchase           | foreign_key: true |             |
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| postal_code        | string     | null: false |
+| delivery_source_id | integer    | null: false |
+| municipali         | string     | null: false |
+| city_string        | string     | null: false |
+| bilding_name       | string     |             |
+| phone_number       | string     | null: false |
+| purchase           | references |             |
 
 ### Association
 
