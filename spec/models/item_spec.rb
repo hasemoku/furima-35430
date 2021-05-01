@@ -24,27 +24,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Description can't be blank"
       end
       it 'category_idが---では登録できない' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Category must be other than 1'
       end
       it 'condition_idが---では登録できない' do
-        @item.condition_id = '1'
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Condition must be other than 1'
       end
       it 'shipping_charge_idが---では登録できない' do
-        @item.shipping_charge_id = '1'
+        @item.shipping_charge_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Shipping charge must be other than 1'
       end
       it 'delivery_source_idが---では登録できない' do
-        @item.delivery_source_id = '1'
+        @item.delivery_source_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Delivery source must be other than 1'
       end
       it 'days_to_ship_idが---では登録できない' do
-        @item.days_to_ship_id = '1'
+        @item.days_to_ship_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Days to ship must be other than 1'
       end
@@ -57,6 +57,21 @@ RSpec.describe Item, type: :model do
         @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank"
+      end
+      it 'priceは¥9,999,999まで登録可能' do
+        @item.price = 10_000_000
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price is not included in the list'
+      end
+      it 'priceは¥300以上で登録可能' do
+        @item.price = 299
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price is not included in the list'
+      end
+      it 'userが紐付いていないと保存できないこと' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end

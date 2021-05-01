@@ -2,19 +2,26 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :condition
   belongs_to :category
-  has_one_attached :days_to_ship
-  has_one_attached :delivery_source
-  has_one_attached :shipping_charge
+  belongs_to :days_to_ship
+  belongs_to :delivery_source
+  belongs_to :shipping_charge
   has_one_attached :image
+  belongs_to :user
 
-  validates :product_name,  presence: true
-  validates :description,   presence: true
-  validates :price,         presence: true
-  validates :image,         presence: true
+  with_options presence: true do
+    validates :product_name
+    validates :description
+    validates :price
+    validates :image
+  end
 
-  validates :condition_id,        numericality: { other_than: 1 }
-  validates :category_id,         numericality: { other_than: 1 }
-  validates :days_to_ship_id,     numericality: { other_than: 1 }
-  validates :delivery_source_id,  numericality: { other_than: 1 }
-  validates :shipping_charge_id,  numericality: { other_than: 1 }
+  validates :price, inclusion: { in: (300..9_999_999) }
+
+  with_options numericality: { other_than: 1 } do
+    validates :condition_id
+    validates :category_id
+    validates :days_to_ship_id
+    validates :delivery_source_id
+    validates :shipping_charge_id
+  end
 end
