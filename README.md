@@ -26,7 +26,7 @@
 | ------------------- | ---------- | ----------------- |
 | product_name        | string     | null: false       |
 | description         | text       | null: false       |
-| cutegory_id         | integer    | null: false       |
+| category_id         | integer    | null: false       |
 | condition_id        | integer    | null: false       |
 | shipping_charge_id  | integer    | null: false       |
 | delivery_source_id  | integer    | null: false       |
