@@ -51,8 +51,7 @@ class ItemsController < ApplicationController
                                  :days_to_ship_id, :price, :image).merge(user_id: current_user.id)
   end
 
-
   def move_to_index
-    redirect_to root_path unless user_signed_in? && current_user.id == @item.user_id
+    return redirect_to root_path if current_user.id != @item.user_id || @item.purchase.present?
   end
 end

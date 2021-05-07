@@ -1,10 +1,11 @@
 class PurchasesController < ApplicationController
-  before_action :authenticate_user!, only: :index
-  before_action :set_item, only: [:index, :create]
-  before_action :move_to_index, only: :index
+  before_action :authenticate_user!
+  before_action :set_item
+  before_action :move_to_index
 
   def index
     @purchase_address = PurchaseAddress.new
+    redirect_to root_path if current_user == @item.user
   end
 
   def create
@@ -21,15 +22,17 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.require(:purchase_address).permit(:postal_code, :delivery_source_id, :municipali, :city_string, :bilding_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:purchase_address).permit(:postal_code, :delivery_source_id, :municipali, :city_string, :bilding_name, :phone_number).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,  # 商品の値段
       card: purchase_params[:token],    # カードトークン
-      currency: 'jpy'                 
+      currency: 'jpy'
     )
   end
 
@@ -38,6 +41,6 @@ class PurchasesController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path if @item.purchase.present?
+    redirect_to root_path if @item.purchase.present? || current_user.id == @item.user.id
   end
 end
