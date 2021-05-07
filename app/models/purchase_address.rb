@@ -1,8 +1,7 @@
 class PurchaseAddress
   extend ActiveHash::Associations::ActiveRecordExtensions
   include ActiveModel::Model
-  attr_accessor :postal_code, :delivery_source_id, :municipali, :city_string, :bilding_name, :phone_number, :user_id, :item_id,
-                :token
+  attr_accessor :postal_code, :delivery_source_id, :municipali, :city_string, :bilding_name, :phone_number, :user_id, :item_id, :token
 
   with_options presence: true do
     validates :user_id
