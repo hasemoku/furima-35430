@@ -9,7 +9,7 @@ class PurchaseAddress
     validates :item_id
     validates :token
     validates :city_string
-    validates :phone_number, format: { with: /\A\d{11}\z/, message: 'Input only number' }
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'Input only number' }
     validates :delivery_source_id, numericality: { other_than: 1 }
     validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
   end

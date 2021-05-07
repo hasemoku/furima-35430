@@ -5,7 +5,6 @@ class PurchasesController < ApplicationController
 
   def index
     @purchase_address = PurchaseAddress.new
-    redirect_to root_path if current_user == @item.user
   end
 
   def create
