@@ -52,6 +52,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path unless user_signed_in? && current_user.id == @item.user_id
+    return redirect_to root_path if current_user.id != @item.user_id || @item.purchase.present?
   end
 end
